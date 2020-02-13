@@ -1,14 +1,18 @@
 #[cfg(feature = "serde")]
-mod serde_impls {
+mod submodule {
     use super::*;
 
     use serde_bytes::Bytes;
-}
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    #[cfg(test)]
+    mod tests {
+        extern crate serde_ as serde;
+
+        use serde_derive::{Deserialize, Serialize};
+        #[test]
+        fn foo() {
+            #[derive(Debug, Serialize, Deserialize, PartialEq)]
+            struct Foo {}
+        }
     }
 }
